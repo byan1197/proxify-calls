@@ -15,11 +15,12 @@ const HOST = process.env.host || "localhost";
 app.use(morgan("dev"));
 
 app.use("", (req, res, next) => {
-    if (req.headers.api_key && req.headers.api_key === process.env.api_key) {
-      next();
-    } else {
-      res.sendStatus(403);
-    }
+  res.header("Access-Control-Allow-Origin", "*");
+  if (req.headers.api_key && req.headers.api_key === process.env.api_key) {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 app.get("/photos", async (req, res) => {
