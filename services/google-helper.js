@@ -2,8 +2,13 @@ const { google } = require("googleapis");
 
 const GoogleHelper = {
   getPhotos: async () => {
+    const credentials = JSON.parse(process.env.google_credentials);
+    credentials.private_key = credentials.private_key.replace(
+      new RegExp("\\\\n", "g"),
+      "\n"
+    );
     const auth = new google.auth.GoogleAuth({
-      keyFile: "/home/b/app/fancyframe-1639457216847-52cd1f029c48.json",
+      credentials: credentials,
       scopes: ["https://www.googleapis.com/auth/drive.readonly"],
     });
     const driveService = google.drive({ version: "v3", auth });
