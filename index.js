@@ -15,9 +15,14 @@ const HOST = process.env.host || "localhost";
 app.use(morgan("dev"));
 
 app.use("", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  if (req.headers.api_key && req.headers.api_key === process.env.api_key) {
-    next();
+  const allowedOrigins = ["http://localhost:3000"];
+  const origin = req.headers.origin;
+  if (
+    allowedOrigins.includes(origin) &&
+    req.headers.api_key &&
+    req.headers.api_key === process.env.api_key
+  ) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
   } else {
     res.sendStatus(403);
   }
