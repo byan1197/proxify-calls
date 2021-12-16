@@ -6,7 +6,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["http://localhost:3000", "https://polar-basin-24268.herokuapp.com"];
 const corsOptionsDelegate = function (req, callback) {
   var corsOptions;
   if (allowedOrigins.indexOf(req.header("Origin")) !== -1) {
